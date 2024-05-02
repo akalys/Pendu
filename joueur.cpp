@@ -1,5 +1,6 @@
 
 #include "joueur.hpp"
+#include "jeuPendu.hpp"
 
 
 /**

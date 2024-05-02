@@ -1,15 +1,11 @@
-cmake_minimum_required(VERSION 3.10)
-project(myproject VERSION 1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.10)  # Spécifiez la version minimale de CMake
 
-# specify the C++ standard
+# Définissez le nom du projet et la version
+project(Pendu VERSION 1.0)
+
+# Spécifiez la norme C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# add the executable
-add_executable(myproject pjpendu.cpp humain.cpp joueur.cpp jeuPendu.cpp pendaison.cpp machine.cpp)
-
-# specify any libraries the executable depends on
-#target_link_libraries(myproject PRIVATE pthread)
-
-# specify where the executable should be installed
-#install(TARGETS myproject DESTINATION bin)
+# Ajoutez les fichiers source à votre projet pour créer un exécutable
+add_executable(pjpendu pjpendu.cpp humain.cpp machine.cpp joueur.cpp jeuPendu.cpp pendaison.cpp)

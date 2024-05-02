@@ -12,8 +12,8 @@ class Humain : public Joueur
 {
 public:
     Humain(const string &n);
-    virtual string proposerMot() override;
-    virtual char proposerLettre() override;
+    virtual string proposerMot() override ;
+    virtual char proposerLettre() override ;
 };
 
 #endif

@@ -11,8 +11,8 @@ using namespace std;
 class Machine : public Joueur {
 public:
     Machine(const string& n, const vector<string>& d);
-    virtual string proposerMot() const override;
-    virtual char proposerLettre() const override;
+    virtual string proposerMot() override;
+    virtual char proposerLettre() override;
 private:
     const vector<string>& m_dict; // Dictionnaire de mots
 };

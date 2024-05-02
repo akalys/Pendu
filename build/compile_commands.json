@@ -1,0 +1,38 @@
+[
+{
+  "directory": "D:/M1/C++/Pendu/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\pjpendu.dir\\pjpendu.cpp.obj -c D:\\M1\\C++\\Pendu\\pjpendu.cpp",
+  "file": "D:/M1/C++/Pendu/pjpendu.cpp",
+  "output": "CMakeFiles/pjpendu.dir/pjpendu.cpp.obj"
+},
+{
+  "directory": "D:/M1/C++/Pendu/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\pjpendu.dir\\humain.cpp.obj -c D:\\M1\\C++\\Pendu\\humain.cpp",
+  "file": "D:/M1/C++/Pendu/humain.cpp",
+  "output": "CMakeFiles/pjpendu.dir/humain.cpp.obj"
+},
+{
+  "directory": "D:/M1/C++/Pendu/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\pjpendu.dir\\machine.cpp.obj -c D:\\M1\\C++\\Pendu\\machine.cpp",
+  "file": "D:/M1/C++/Pendu/machine.cpp",
+  "output": "CMakeFiles/pjpendu.dir/machine.cpp.obj"
+},
+{
+  "directory": "D:/M1/C++/Pendu/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\pjpendu.dir\\joueur.cpp.obj -c D:\\M1\\C++\\Pendu\\joueur.cpp",
+  "file": "D:/M1/C++/Pendu/joueur.cpp",
+  "output": "CMakeFiles/pjpendu.dir/joueur.cpp.obj"
+},
+{
+  "directory": "D:/M1/C++/Pendu/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\pjpendu.dir\\jeuPendu.cpp.obj -c D:\\M1\\C++\\Pendu\\jeuPendu.cpp",
+  "file": "D:/M1/C++/Pendu/jeuPendu.cpp",
+  "output": "CMakeFiles/pjpendu.dir/jeuPendu.cpp.obj"
+},
+{
+  "directory": "D:/M1/C++/Pendu/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\pjpendu.dir\\pendaison.cpp.obj -c D:\\M1\\C++\\Pendu\\pendaison.cpp",
+  "file": "D:/M1/C++/Pendu/pendaison.cpp",
+  "output": "CMakeFiles/pjpendu.dir/pendaison.cpp.obj"
+}
+]
