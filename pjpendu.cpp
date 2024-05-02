@@ -7,96 +7,97 @@
 #include <fstream>
 #include <iterator>
 
-/**
- * @brief Lance la partie entre deux joueurs humains
- */
-void jeucontreHumain()
-{
-    // Instancie les joueurs
+void jeucontreHumain() {
     cout << "Joueur 1 : Votre Nom ?" << endl; 
-    string Humain1; 
-    cin >> Humain1; 
-
-    Humain j1(Humain1);
+    string nom1; 
+    cin >> nom1; 
+    Humain j1(nom1);
 
     cout << "Joueur 2 : Votre Nom ?" << endl; 
-    string Humain2; 
-    cin >> Humain2; 
-    Humain j2(Humain2);
+    string nom2; 
+    cin >> nom2; 
+    Humain j2(nom2);
 
-    vector<Joueur *> joueurs;
-    joueurs.push_back(&j1);
-    joueurs.push_back(&j2);
-
-    // Instancie un jeu de Pendu
+    vector<Joueur*> joueurs {&j1, &j2};
     jeuPendu jeu(joueurs);
 
-    // Effectue les parties
-    cout << "Une partie ? (o/n)";
     char c;
-    cin >> c;
-    while (tolower(c) == 'o')
-    {
+    do {
         jeu.jouer();
         jeu.afficher();
-        cout << "Une autre partie ? (o/n) ";
-        cin>>c; 
-    }
+        cout << "Voulez-vous jouer encore ? (o/n) : ";
+        cin >> c;
+    } while (tolower(c) == 'o');
 }
 
-/**
- * @brief Lance une partie entre l'IA et la machine
- */
-void jeucontreMachine(){
-
-    //On vérifie si le fichier s'ouvre sans problème
+void jeucontreMachine() {
     ifstream is("dictionnaire.txt");
     if (!is) {
         cerr << "Erreur à l'ouverture du fichier dictionnaire." << endl;
         return;
     }
 
-    // Charge le dictionnaire
     vector<string> dico((istream_iterator<string>(is)), istream_iterator<string>());
     is.close();
 
-    //Instancie les joueurs
-    cout << "Joueur 1 : Votre Nom ?" << endl; 
-    string Humain1; 
-    cin >> Humain1; 
-
-    Humain j1(Humain1);
+    cout << "Votre Nom ?" << endl;
+    string nom;
+    cin >> nom;
+    Humain j1(nom);
     Machine j2("Ordinateur", dico);
 
-    vector<Joueur *> joueurs;
-    joueurs.push_back(&j1);
-    joueurs.push_back(&j2);
-
+    vector<Joueur*> joueurs {&j1, &j2};
     jeuPendu jeu(joueurs);
-    
-    cout << "Une partie ? (o/n)";
+
     char c;
-    cin >> c;
-    while (tolower(c) == 'o')
-    {
+    do {
         jeu.jouer();
         jeu.afficher();
-        cout << "Une autre partie ? (o/n) ";
-        cin>>c; 
-    }
+        cout << "Voulez-vous jouer encore ? (o/n) : ";
+        cin >> c;
+    } while (tolower(c) == 'o');
 }
 
 int main() {
     char choix;
-    cout << "Voulez-vous jouer contre l'IA (i) ou contre un humain (h) ? ";
-    cin >> choix;
-    choix = tolower(choix);
-    if (choix == 'i') {
-        jeucontreMachine();
-    } else if (choix == 'h') {
-        jeucontreHumain();
-    } else {
-        cout << "Choix invalide. Veuillez choisir 'i' pour jouer contre l'IA ou 'h' pour jouer contre un humain." << endl;
-    }
+    do {
+        system("cls");
+        cout << "Bienvenue dans le jeu du Pendu!\n";
+        cout << "Voulez-vous jouer une partie ? (o/n) : ";
+        cin >> choix;
+        choix = tolower(choix);
+
+        if (choix == 'o') {
+            system("cls"); 
+            cout << "1. Jouer contre l'ordinateur\n";
+            cout << "2. Jouer contre un autre humain\n";
+            cout << "3. Quitter\n";
+            cout << "Entrez votre choix (1, 2 ou 3) : ";
+            cin >> choix;
+
+            switch (choix) {
+                case '1':
+                system("cls");
+                    jeucontreMachine();
+                    break;
+                case '2':
+                system("cls");
+                    jeucontreHumain();
+                    break;
+                case '3':
+                system("cls");
+                    cout << "Merci d'avoir joué. À bientôt!\n";
+                    exit(0);
+                default:
+                    cout << "Choix invalide.\n";
+            }
+        } else if (choix == 'n') {
+            cout << "Merci d'avoir joué. À bientôt!\n";
+            break;
+        } else {
+            cout << "Choix invalide.\n";
+        }
+    } while (true);
+
     return 0;
 }

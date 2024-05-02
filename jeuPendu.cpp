@@ -1,13 +1,16 @@
 
 #include "jeuPendu.hpp"
 #include "pendaison.hpp"
+#include "algorithm"
+#include <chrono>
+#include <thread>
 
 jeuPendu::jeuPendu(vector<Joueur *> &j) : m_joueurs(j) {}
 
 void jeuPendu::afficher()
 {
     cout << endl
-         << "Partie Finie ! Résultats : " << endl;
+         << "Partie Finie ! Resultats : " << endl;
     for (unsigned int j = 0; j < m_joueurs.size(); j++)
     {
         Joueur &joueur = *m_joueurs[j];
@@ -48,15 +51,27 @@ bool jeuPendu::devinerMot(unsigned k)
 
             /* Affiche la tentative actuelle, le statut du joueur j
             et lui demande sa lettre */
+            std::cout << "Lettres deja utilisees : ";
+            for (char lettre : lettresUtilisees)
+            {
+                std::cout << lettre << ' ';
+            }
+            cout << endl;
+            unsigned int nEssaisRestant = 7 - joueur.getEtape();
+            cout << endl
+                 << "Il te reste " << nEssaisRestant << " essai(s). " << endl;
+
             cout << endl
                  << "Tentative : " << m_tentative << endl;
             cout << endl
-                 << "   Joueur " << joueur.getNom() << " (" << (j + 1) << ") lettre ?";
+                 << "   Joueur " << joueur.getNom() << " (" << (j + 1) << ") lettre ? ";
             char lettre = joueur.proposerLettre();
-
+            system("cls");
             // Teste si la lettre est dans le mot et actualise le score
+
             if (estDansMot(lettre))
             {
+                Pendaison::afficher(joueur.getEtape());
                 inclureDansMot(lettre);
                 cout << "Bravo: " << m_tentative << endl;
                 if (m_tentative == m_adeviner)
@@ -68,13 +83,26 @@ bool jeuPendu::devinerMot(unsigned k)
             }
             else
             {
-                joueur.incrEtape();
-                cout << "Essaie encore !" << endl;
+                unsigned int nEssaisRestant = 6 - joueur.getEtape();
                 Pendaison::afficher(joueur.getEtape());
+
+                cout << "Rate !" << endl;
+                if (find(lettresUtilisees.begin(), lettresUtilisees.end(), lettre) == lettresUtilisees.end())
+                {
+                    joueur.incrEtape();
+                    lettresUtilisees.push_back(lettre); // Ajouter la lettre utilisée
+                }
+                else
+                {
+                    std::cout << "Vous avez deja essaye cette lettre !\n";
+                }
+
                 if (Pendaison::estPendu(joueur.getEtape()))
                 {
                     cout << "==> PERDU" << endl;
                     m_joueurs[k]->incrPoints();
+                    
+                   
                     return false;
                 }
             }
@@ -107,7 +135,9 @@ void jeuPendu::jouer()
         bool b = devinerMot(k);
         if (not b)
         {
-            cout << "Le mot à deviner était: " << m_adeviner << endl;
+            cout << "Le mot a deviner etait: " << m_adeviner << endl;
+            std::this_thread::sleep_for(std::chrono::seconds(3));
+            system("cls");
         }
     }
 }
@@ -121,7 +151,8 @@ void jeuPendu::inclureDansMot(char c)
 {
     for (unsigned int j = 0; j < m_tentative.size(); j++)
     {
-        if (c == m_adeviner[j])
+
+        if (tolower(c) == m_adeviner[j])
         {
             m_tentative[j] = c;
         }
@@ -133,11 +164,13 @@ void jeuPendu::initADeviner(unsigned int k)
     cout << endl
          << "Au joueur "
          << m_joueurs[k]->getNom()
-         << " (" << (k + 1) << ") de proposer un mot" << endl;
+         << " (" << (k + 1) << ") de proposer un mot" << endl
+         << endl;
     m_adeviner = m_joueurs[k]->proposerMot();
 }
 
 void jeuPendu::initTentative()
 {
     m_tentative = string(m_adeviner.size(), '_');
+    lettresUtilisees.clear();
 }

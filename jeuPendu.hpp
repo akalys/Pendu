@@ -23,12 +23,14 @@ protected:
     void inclureDansMot(char c);
     void initADeviner(unsigned k);
     void initTentative();
-    bool devinerMot(unsigned k); 
+    bool devinerMot(unsigned k);
+    std::vector<char> lettresUtilisees; 
 
 private:
     vector<Joueur *> &m_joueurs;
     string m_adeviner;  // mot caché
     string m_tentative; // mot tenté
+    
 };
 
 #endif 

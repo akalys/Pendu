@@ -1,6 +1,14 @@
 #include "machine.hpp"
+#include "jeuPendu.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+void delay(int seconds) {
+    std::this_thread::sleep_for(std::chrono::seconds(seconds));
+}
 
 /**
  * @brief Constructeur de Machine
@@ -19,7 +27,6 @@ Machine::Machine(const string &n, const vector<string> &d)
 string Machine::proposerMot() 
 {
     int index = rand() % m_dict.size(); // Sélection aléatoire d'un index
-    cout << "Mot proposé: " << m_dict[index] << endl;
     return m_dict[index];
 }
 
@@ -29,7 +36,15 @@ string Machine::proposerMot()
  * @return char
  */
 char Machine::proposerLettre() {
-    char c = 'a' + rand() % 26; // Génère une lettre aléatoire de l'alphabet
-    std::cout << "Lettre proposée: " << c << endl;
-    return c;
+    char tirage; 
+    do {
+        tirage = 'a' + rand() % 26; // Génère une lettre aléatoire de l'alphabet
+    } while (lettresDejaUtilisees.find(tirage) != lettresDejaUtilisees.end());
+
+    lettresDejaUtilisees.insert(tirage); // Ajoute la lettre tirée à l'ensemble des lettres déjà utilisées
+
+    std::cout << " " << tirage << std::endl;
+    delay(2);
+    return tirage;
+    
 }

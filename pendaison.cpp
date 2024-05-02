@@ -85,5 +85,5 @@ void Pendaison::afficher(unsigned int j_etape)
  */
 bool Pendaison::estPendu(unsigned j_etape)
 {
-    return j_etape >= 6;
+    return j_etape > 6;
 }

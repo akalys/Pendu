@@ -1,4 +1,7 @@
 #include "Humain.hpp"
+#include <iostream>
+#include <cctype>
+#include <conio.h>  // Nécessaire pour _getch()
 
 /**
  * @brief Constructeur
@@ -14,8 +17,8 @@ Humain::Humain(const string &n) : Joueur(n) {}
  */
 string Humain::proposerMot() 
 {
-    cout << "(Les autres joueurs, ne regardez pas !)" << endl;
-    cout << "Mot proposé ? ";
+    cout << "(Si ce n'est pas a toi d'ecrire un mot, il ne faut pas que tu regardes par ici)" << endl;
+    cout << "Mot propose ? ";
     string s;
     cin >> s;
     return s;
@@ -29,6 +32,9 @@ string Humain::proposerMot()
 char Humain::proposerLettre()
 {
     char c;
-    cin >> c;
+    do {
+        c = _getch();
+        c = tolower(c);
+    } while (!isalpha(c)); 
     return c;
 }
