@@ -1,0 +1,15 @@
+maison
+arbre
+ordinateur
+chaise
+soleil
+lune
+chat
+chien
+livre
+montagne
+fleuve
+voiture
+bicyclette
+avion
+fleur
