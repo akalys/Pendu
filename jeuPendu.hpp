@@ -27,7 +27,7 @@ protected:
     std::vector<char> lettresUtilisees; 
 
 private:
-    vector<Joueur *> &m_joueurs;
+    vector<Joueur *> &m_joueurs; // Joueurs dans la partie 
     string m_adeviner;  // mot caché
     string m_tentative; // mot tenté
     

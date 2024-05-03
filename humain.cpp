@@ -25,8 +25,8 @@ string Humain::proposerMot()
 }
 
 /**
- * @brief Les joueurs propose une lettre
- * 
+ * @brief Les joueurs propose un caractère. Si le caractère est une lettre, 
+ * alors ce sera la lettre proposée par le joueur
  * @return Lettre potentiellement présente dans le mot
  */
 char Humain::proposerLettre()

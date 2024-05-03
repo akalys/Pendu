@@ -7,6 +7,10 @@
 #include <fstream>
 #include <iterator>
 
+/**
+ * @brief Déroulement d'une partie à
+ * deux joueurs
+ */
 void jeucontreHumain() {
     cout << "Joueur 1 : Votre Nom ?" << endl; 
     string nom1; 
@@ -30,6 +34,9 @@ void jeucontreHumain() {
     } while (tolower(c) == 'o');
 }
 
+/**
+ * @brief Partie contre l'IA
+ */
 void jeucontreMachine() {
     ifstream is("dictionnaire.txt");
     if (!is) {
@@ -58,6 +65,9 @@ void jeucontreMachine() {
     } while (tolower(c) == 'o');
 }
 
+/**
+ * @brief Affichage principale qui fait office de menu 
+ */
 int main() {
     char choix;
     do {

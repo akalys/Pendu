@@ -5,27 +5,41 @@
 #include <chrono>
 #include <thread>
 
+/**
+ * @brief Constructeur de jeu pendu 
+ * 
+ * @param j Les joueurs
+ */
 jeuPendu::jeuPendu(vector<Joueur *> &j) : m_joueurs(j) {}
 
+/**
+ * @brief Affiche les résultats à la fin de la partie
+ */
 void jeuPendu::afficher()
 {
-    cout << endl
+    std::cout << endl
          << "Partie Finie ! Resultats : " << endl;
-    for (unsigned int j = 0; j < m_joueurs.size(); j++)
+    for (unsigned int j = 0; j < m_joueurs.size(); j++) // Chaque joueur est analysé une fois
     {
         Joueur &joueur = *m_joueurs[j];
-        cout << "Joueur "
-             << joueur.getNom()
-             << " (" << (j + 1) << ") => "
-             << (!Pendaison::estPendu(joueur.getEtape()) ? "EN VIE" : "PENDU")
-             << " Points : " << joueur.getPoints() << endl;
+        std::cout << "Joueur "
+             << joueur.getNom() // On ressort le nom 
+             << " (" << (j + 1) << ") => " // Si c'est le joueur 1 ou le joueur 2
+             << (!Pendaison::estPendu(joueur.getEtape()) ? "EN VIE" : "PENDU") // Son état à la fin de la partie
+             << " Points : " << joueur.getPoints() << endl; // Son nombre de points
     }
-    cout << endl;
+    std::cout << endl;
 }
 
+/**
+ * @brief Fonction booléenne qui indique si le mot
+ * a été deviné ou non 
+ * @param k Le numéro du joueur qui a proposé le mot
+ * @return true si le joueur trouve le mot sinon false 
+ */
 bool jeuPendu::devinerMot(unsigned k)
 {
-    /*On continue de jouer tant que un joueur a reussi à jouer
+    /*On continue de jouer tant que un joueur a reussi à jouer et
     que le mot n'est pas deviné */
     for (;;)
     {
@@ -56,28 +70,29 @@ bool jeuPendu::devinerMot(unsigned k)
             {
                 std::cout << lettre << ' ';
             }
-            cout << endl;
+            std::cout << endl;
             unsigned int nEssaisRestant = 7 - joueur.getEtape();
-            cout << endl
+            std::cout << endl
                  << "Il te reste " << nEssaisRestant << " essai(s). " << endl;
 
-            cout << endl
+            std::cout << endl
                  << "Tentative : " << m_tentative << endl;
-            cout << endl
+            std::cout << endl
                  << "   Joueur " << joueur.getNom() << " (" << (j + 1) << ") lettre ? ";
             char lettre = joueur.proposerLettre();
             system("cls");
+
             // Teste si la lettre est dans le mot et actualise le score
 
             if (estDansMot(lettre))
             {
                 Pendaison::afficher(joueur.getEtape());
                 inclureDansMot(lettre);
-                cout << "Bravo: " << m_tentative << endl;
+                std::cout << "Bravo: " << m_tentative << endl;
                 if (m_tentative == m_adeviner)
                 {
                     joueur.incrPoints();
-                    cout << "==> GAGNE !" << endl;
+                    std::cout << "==> GAGNE !" << endl;
                     return true;
                 }
             }
@@ -86,11 +101,12 @@ bool jeuPendu::devinerMot(unsigned k)
                 unsigned int nEssaisRestant = 6 - joueur.getEtape();
                 Pendaison::afficher(joueur.getEtape());
 
-                cout << "Rate !" << endl;
-                if (find(lettresUtilisees.begin(), lettresUtilisees.end(), lettre) == lettresUtilisees.end())
+                std::cout << "Rate !" << endl;
+
+                if (find(lettresUtilisees.begin(), lettresUtilisees.end(), lettre) == lettresUtilisees.end()) // Recherche si la lettre a déjà été utilisée
                 {
-                    joueur.incrEtape();
-                    lettresUtilisees.push_back(lettre); // Ajouter la lettre utilisée
+                    joueur.incrEtape(); 
+                    lettresUtilisees.push_back(lettre); // Ajoute la lettre utilisée
                 }
                 else
                 {
@@ -99,7 +115,7 @@ bool jeuPendu::devinerMot(unsigned k)
 
                 if (Pendaison::estPendu(joueur.getEtape()))
                 {
-                    cout << "==> PERDU" << endl;
+                    std::cout << "==> PERDU" << endl;
                     m_joueurs[k]->incrPoints();
                     
                    
@@ -114,6 +130,9 @@ bool jeuPendu::devinerMot(unsigned k)
     }
 }
 
+/**
+ * @brief Lancement d'une partie
+ */
 void jeuPendu::jouer()
 {
     // Reinitialise les statuts des joueurs
@@ -135,9 +154,9 @@ void jeuPendu::jouer()
         bool b = devinerMot(k);
         if (not b)
         {
-            cout << "Le mot a deviner etait: " << m_adeviner << endl;
-            std::this_thread::sleep_for(std::chrono::seconds(3));
-            system("cls");
+            std::cout << "Le mot a deviner etait: " << m_adeviner << endl;
+            std::this_thread::sleep_for(std::chrono::seconds(3)); // Delai pour un affichage plus propre
+            system("cls"); // Efface le terminal
         }
     }
 }
@@ -161,7 +180,7 @@ void jeuPendu::inclureDansMot(char c)
 
 void jeuPendu::initADeviner(unsigned int k)
 {
-    cout << endl
+    std::cout << endl
          << "Au joueur "
          << m_joueurs[k]->getNom()
          << " (" << (k + 1) << ") de proposer un mot" << endl
